@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡! ✨</title>
+    <style>
+        :root {
+            --color-brillo: rgba(173, 216, 230, 0.6); /* Brillo azulado suave */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #0f0524 0%, #020105 100%);
+            font-family: 'Segoe UI', sans-serif;
+            height: 100vh;
+        }
+
+        #canvas {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .centro {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+            animation: pulsoTexto 4s infinite ease-in-out;
+            width: 90%;
+        }
+
+        .centro h1 {
+            color: white;
+            font-size: 2.2rem;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            margin: 0;
+        }
+
+        @keyframes flotarYBalancear {
+            0% { transform: translateY(0) translateX(0) scale(0.7); opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { transform: translateY(-115vh) translateX(var(--random-x)) scale(1); opacity: 0; }
+        }
+
+        @keyframes pulsoTexto {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        .mensaje-flotante {
+            position: absolute;
+            bottom: -80px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            pointer-events: none;
+            animation: flotarYBalancear linear forwards;
+        }
+
+        .texto {
+            font-size: 1.15rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .emoji { font-size: 1.3rem; }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: parpadeo infinite ease-in-out;
+        }
+
+        @keyframes parpadeo {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas">
+        <div class="centro">
+            <h1>Todo va a estar bien, Te quiero Alisson Ponce ✨</h1>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+
+        const frases = [
+            "Eres valiente", "Aquí estoy para ti", "Un día a la vez", "Eres muy fuerte", "Todo pasa", "Cuentas conmigo",
+            "Eres luz", "Confío en ti", "Respira profundo", "Eres auténtica", "Ánimo", "Brillas increíble",
+            "No te rindas", "Orgulloso de ti", "Te admiro mucho", "Eres suficiente", "Paso a paso", "Eres una crack",
+            "Todo mejorará", "Eres especial", "Te mando un abrazo", "Cree en ti", "Eres una guerrera", "Sonríe un poquito",
+            "Eres increíble", "La mejor amiga", "Gracias por tu amistad", "Gracias por existir", "Vales muchísimo",
+            "Eres capaz de todo", "No estás sola", "Te quiero ver bien", "Eres pura buena vibra", "Eres arte", "Saldrás de esta",
+            "Eres pura inspiración", "Tu fuerza es única", "Eres oro puro", "Sigue adelante", "Eres admirable", "Eres una estrella",
+            "Eres calma", "Eres un regalo de la vida", "Eres talento", "Eres mi mejor apoyo", "Vuela alto", "Nunca dudes de ti",
+            "Eres una bendición", "Ánimo, tú puedes", "Eres alegría", "Eres pura bondad", "Eres una gran persona", "Te apoyo en todas",
+            "Eres irremplazable", "Mañana será mejor", "Eres un gran ejemplo", "Confía en tu proceso", "Eres mi gran amiga",
+            "No pierdas la fe", "Eres resiliencia", "Eres pura energía", "Eres única en el mundo", "Qué gran corazón tienes",
+            "Eres luz en la oscuridad", "Eres paz", "Eres una luchadora", "Todo va a salir bien", "Eres genial", "Eres asombrosa",
+            "Eres una persona valiosa", "Cuentas conmigo siempre", "Eres mi mejor compañía", "Eres pura vida", "Eres optimismo",
+            "Eres una gran mujer", "Eres nobleza", "Eres sinceridad", "Eres mi apoyo incondicional", "Eres la mejor",
+            "No te detengas", "Brilla con luz propia", "Eres una campeona", "Eres superación", "Eres un ser increíble",
+            "Eres inteligente", "Eres divertida", "Eres espontánea", "Eres mi gran confidente", "Eres única",
+            "Eres mi equipo", "Siempre estaré aquí", "Eres un sol", "Eres simplemente tú", "Eres especial para todos"
+        ];
+
+        const emojis = ["✨", "💪", "🌸", "🌙", "🦋", "🌻", "🧸", "🎈", "🌈", "🍀", "🌊"];
+        const colores = ["#b2f2bb", "#a5d8ff", "#ffec99", "#ffccf9", "#e5dbff", "#d0ebff"];
+
+        // Estrellas de fondo
+        for (let i = 0; i < 70; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2.5 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            canvas.appendChild(star);
+        }
+
+        function crearMensaje() {
+            const div = document.createElement('div');
+            div.className = 'mensaje-flotante';
+
+            const frase = frases[Math.floor(Math.random() * frases.length)];
+            const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+            const color = colores[Math.floor(Math.random() * colores.length)];
+
+            div.innerHTML = `
+                <span class="emoji">${emoji}</span>
+                <span class="texto" style="color: ${color}; text-shadow: 0 0 10px ${color}80;">${frase}</span>
+                <span class="emoji">${emoji}</span>
+            `;
+
+            div.style.left = (Math.random() * 80 + 5) + 'vw';
+            const randomX = (Math.random() * 80 - 40) + 'px';
+            div.style.setProperty('--random-x', randomX);
+
+            const duracion = Math.random() * 4 + 8; 
+            div.style.animationDuration = duracion + 's';
+
+            canvas.appendChild(div);
+            setTimeout(() => { div.remove(); }, duracion * 1000);
+        }
+
+        setInterval(crearMensaje, 700);
+
+        // Inicio rápido
+        for(let i=0; i<6; i++) {
+            setTimeout(crearMensaje, i * 400);
+        }
+    </script>
+</body>
+</html>
